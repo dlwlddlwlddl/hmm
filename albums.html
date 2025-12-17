@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Queen Albums</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000;
+      font-family: "Times New Roman", serif;
+      overflow-x: hidden;
+      padding-top: 50px; /* 상단 고정 네비 높이만큼 */
+      color: #f7f4e9;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ===== 상단 네비게이션 ===== */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      background: rgba(10, 5, 4, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 20px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 22px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .main-nav a {
+      position: relative;
+      padding-bottom: 3px;
+    }
+
+    .main-nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: #f7f4e9;
+      transition: width 0.25s ease;
+    }
+
+    .main-nav a:hover::after {
+      width: 100%;
+    }
+
+    .site-search {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .site-search input {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: #f7f4e9;
+      font-size: 11px;
+      width: 150px;
+      outline: none;
+    }
+
+    .site-search input::placeholder {
+      color: rgba(247, 244, 233, 0.5);
+    }
+
+    .site-search button {
+      border: none;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: #f7f4e9;
+      color: #120a06;
+      cursor: pointer;
+    }
+
+    .site-search button:hover {
+      filter: brightness(0.9);
+    }
+
+    /* ===== ALBUMS 섹션 ===== */
+    .albums-section {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: url("chest-top-view.png") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .albums-title {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(32px, 3vw, 46px);
+      letter-spacing: 0.25em;
+      color: #f7f4e9;
+      text-transform: uppercase;
+      text-shadow: 0 0 14px rgba(0,0,0,0.9);
+      pointer-events: none;
+      z-index: 30;
+    }
+
+    .vinyl {
+      position: absolute;
+      left: 50%;
+      bottom: -150%;
+      transform: translateX(-50%);
+      width: 160%;
+      max-width: 1700px;
+      opacity: 0.95;
+      pointer-events: none;
+      z-index: 3;
+      animation: spinVinyl 40s linear infinite;
+    }
+
+    .vinyl img {
+      width: 100%;
+      display: block;
+    }
+
+    @keyframes spinVinyl {
+      0% {
+        transform: translateX(-50%) scale(1) rotate(0deg);
+      }
+      100% {
+        transform: translateX(-50%) scale(1) rotate(360deg);
+      }
+    }
+
+    /* 드래그되는 앨범 묶음 */
+    .albums-drag-area {
+      position: absolute;
+      left: 50%;
+      bottom: 24%;
+      transform: translateX(-50%);
+      width: 140%;
+      height: 40%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      cursor: grab;
+      transition: filter 0.4s ease;
+      z-index: 10;
+    }
+
+    .albums-drag-area:active {
+      cursor: grabbing;
+      filter: brightness(1.05);
+    }
+
+    .album {
+      position: relative;
+      width: 230px;
+      max-width: 18vw;
+      aspect-ratio: 3 / 4;
+      margin: 0 -38px;
+      transform-origin: center bottom;
+      transform: rotate(var(--angle, 0deg));
+      transition:
+        transform 0.3s ease,
+        filter 0.3s ease,
+        box-shadow 0.3s ease;
+      z-index: 10;
+    }
+
+    .album img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.85);
+    }
+
+    .album:hover {
+      transform: translateY(-12px) scale(1.05) rotate(var(--angle, 0deg));
+      z-index: 15;
+      box-shadow: 0 26px 60px rgba(0, 0, 0, 0.95);
+      filter: brightness(1.06);
+    }
+
+    .site-footer {
+      padding: 14px 40px 20px;
+      background: #050304;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      font-size: 11px;
+      color: rgba(247, 244, 233, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .site-header {
+        padding: 0 16px;
+        gap: 10px;
+      }
+
+      .main-nav {
+        display: none;
+      }
+
+      .site-search input {
+        width: 110px;
+      }
+
+      .albums-drag-area {
+        bottom: 28%;
+        width: 170%;
+      }
+
+      .album {
+        margin: 0 -24px;
+      }
+
+      .vinyl {
+        bottom: -75%;
+        width: 200%;
+      }
+
+      .site-footer {
+        padding: 12px 16px 18px;
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">QUEEN</div>
+
+    <nav class="main-nav">
+      <a href="band.html">밴드소개</a>
+      <a href="albums.html">앨범소개</a>
+      <a href="구성원.html">구성원</a>
+      <a href="history.html">그들의 역사</a>
+    </nav>
+
+    <form class="site-search">
+      <input type="search" placeholder="검색…" />
+      <button type="button">Search</button>
+    </form>
+  </header>
+
+  <section class="albums-section">
+    <h2 class="albums-title">ALBUMS</h2>
+
+    <!-- LP -->
+    <div class="vinyl">
+      <img src="lpp.png" alt="Vinyl Record" />
+    </div>
+
+    <!-- 🔹 드래그되는 앨범 카드 묶음 -->
+    <div class="albums-drag-area" id="dragArea">
+      <a href="album1.html" class="album" style="--angle:-18deg;">
+        <img src="lp1.png" alt="Queen Album 1" />
+      </a>
+      <a href="album2.html" class="album" style="--angle:-8deg;">
+        <img src="lp2.png" alt="Queen Album 2" />
+      </a>
+      <a href="album3.html" class="album" style="--angle:4deg;">
+        <img src="lp3.png" alt="Queen Album 3" />
+      </a>
+      <a href="album4.html" class="album" style="--angle:16deg;">
+        <img src="lp4.png" alt="Queen Album 4" />
+      </a>
+      <a href="album5.html" class="album" style="--angle:26deg;">
+        <img src="lp5.png" alt="Queen Album 5" />
+      </a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <span>© 2025 Queen Albums Page</span>
+    <span>Design / Code by You</span>
+  </footer>
+
+  <script>
+    const dragArea = document.getElementById("dragArea");
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let currentX = 0, currentY = 0;
+
+    function setTransform(x, y) {
+      const maxOffset = 40;
+      const limitedX = Math.max(-maxOffset, Math.min(maxOffset, x));
+      const limitedY = Math.max(-maxOffset, Math.min(maxOffset, y));
+      const rotate = limitedX * 0.05;
+
+      dragArea.style.transform =
+        `translateX(calc(-50% + ${limitedX}px)) translateY(${limitedY * 0.3}px) rotate(${rotate}deg)`;
+    }
+
+    dragArea.addEventListener("mousedown", (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+
+      const style = window.getComputedStyle(dragArea);
+      const matrix = new DOMMatrixReadOnly(style.transform);
+      currentX = matrix.m41;
+      currentY = matrix.m42;
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (!isDragging) return;
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      const targetX = currentX + dx * 0.25;
+      const targetY = currentY + dy * 0.25;
+
+      setTransform(targetX, targetY);
+    });
+
+    window.addEventListener("mouseup", () => {
+      if (!isDragging) return;
+      isDragging = false;
+
+      dragArea.style.transition = "transform 0.6s ease-out";
+      dragArea.style.transform = "translateX(-50%) translateY(0) rotate(0deg)";
+      setTimeout(() => {
+        dragArea.style.transition = "filter 0.4s ease";
+      }, 600);
+    });
+
+    dragArea.addEventListener("touchstart", (e) => {
+      const t = e.touches[0];
+      isDragging = true;
+      startX = t.clientX;
+      startY = t.clientY;
+
+      const style = window.getComputedStyle(dragArea);
+      const matrix = new DOMMatrixReadOnly(style.transform);
+      currentX = matrix.m41;
+      currentY = matrix.m42;
+    });
+
+    window.addEventListener("touchmove", (e) => {
+      if (!isDragging) return;
+      const t = e.touches[0];
+
+      const dx = t.clientX - startX;
+      const dy = t.clientY - startY;
+
+      const targetX = currentX + dx * 0.25;
+      const targetY = currentY + dy * 0.25;
+
+      setTransform(targetX, targetY);
+    });
+
+    window.addEventListener("touchend", () => {
+      if (!isDragging) return;
+      isDragging = false;
+
+      dragArea.style.transition = "transform 0.6s ease-out";
+      dragArea.style.transform = "translateX(-50%) translateY(0) rotate(0deg)";
+      setTimeout(() => {
+        dragArea.style.transition = "filter 0.4s.ease";
+      }, 600);
+    });
+  </script>
+</body>
+</html>
+

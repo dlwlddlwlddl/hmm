@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QUEEN | History</title>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      background-image:url("chest-top-view.png");
+      background-size:cover;
+      background-position:center top;
+      background-repeat:no-repeat;
+      background-attachment:fixed;
+      color:#f7f4e9;
+      font-family:"Times New Roman",serif;
+      padding-top:80px;
+    }
+    a{text-decoration:none;color:inherit;}
+
+    /* ===== 공통 네비 ===== */
+    .site-header{
+      position:fixed;top:0;left:0;right:0;
+      height:80px;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 40px;
+      background:rgba(10,5,4,0.92);
+      backdrop-filter:blur(8px);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      z-index:100;
+    }
+    .logo{
+      font-size:22px;
+      letter-spacing:0.25em;
+      text-transform:uppercase;
+    }
+    .main-nav{
+      display:flex;gap:26px;
+      font-size:13px;letter-spacing:0.12em;text-transform:uppercase;
+    }
+    .main-nav a{
+      position:relative;padding-bottom:3px;
+    }
+    .main-nav a::after{
+      content:"";position:absolute;left:0;bottom:0;
+      width:0;height:2px;background:#f7f4e9;transition:width .25s;
+    }
+    .main-nav a:hover::after{width:100%;}
+
+    .site-search{display:flex;align-items:center;gap:6px;font-size:11px;}
+    .site-search input{
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.2);
+      border-radius:999px;padding:6px 10px;
+      color:#f7f4e9;width:150px;
+    }
+    .site-search button{
+      border:none;border-radius:999px;padding:6px 12px;font-size:10px;
+      background:#f7f4e9;color:#120a06;text-transform:uppercase;cursor:pointer;
+    }
+
+    /* ===== HERO ===== */
+    .hero{
+      text-align:center;
+      margin-top:90px;margin-bottom:40px;
+      padding:0 20px;
+    }
+    .hero h1{
+      font-size:40px;text-transform:uppercase;
+      letter-spacing:0.28em;margin-bottom:12px;
+      text-shadow:0 2px 10px rgba(0,0,0,0.7);
+    }
+    .hero p{
+      opacity:0.85;font-size:15px;text-shadow:0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    /* ===== 대표 이미지 ===== */
+    .visual{
+      max-width:1100px;margin:40px auto 60px;text-align:center;
+      padding:0 40px;
+    }
+    .visual img{
+      width:100%;border-radius:12px;
+      box-shadow:0 14px 30px rgba(0,0,0,0.85);
+    }
+
+    /* ===== 타임라인 ===== */
+    .timeline{
+      max-width:900px;margin:30px auto 80px;
+      padding:0 30px;
+      border-left:2px solid rgba(247,244,233,0.9);
+    }
+    .item{
+      margin-bottom:28px;
+      padding-left:18px;
+      position:relative;
+    }
+    .item::before{
+      content:"";position:absolute;
+      left:-9px;top:4px;
+      width:10px;height:10px;
+      background:#f7f4e9;
+      border-radius:50%;
+      box-shadow:0 0 10px rgba(255,255,255,0.6);
+    }
+    .year{
+      font-size:18px;margin-bottom:6px;letter-spacing:0.12em;
+    }
+    .desc{
+      opacity:0.85;font-size:15px;line-height:1.7;
+    }
+
+    /* CTA */
+    .cta-box{
+      text-align:center;margin-bottom:90px;
+      display:flex;justify-content:center;gap:18px;
+    }
+    .cta{
+      border:1px solid #f7f4e9;
+      padding:10px 28px;
+      border-radius:999px;
+      text-transform:uppercase;
+      letter-spacing:0.14em;
+      font-size:12px;
+      background:rgba(10,5,4,0.6);
+      transition:0.25s;
+    }
+    .cta:hover{
+      background:#f7f4e9;color:#000;
+    }
+
+  </style>
+
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="site-header">
+    <div class="logo">QUEEN</div>
+
+    <nav class="main-nav">
+      <a href="밴드소개.html">밴드소개</a>
+      <a href="albums.html">앨범소개</a>
+      <a href="구성원.html">구성원</a>
+      <a href="history.html">그들의 역사</a>
+    </nav>
+
+    <form class="site-search">
+      <input type="search" placeholder="검색…" />
+      <button type="button">Search</button>
+    </form>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>HISTORY</h1>
+    <p>퀸이 걸어온 발자취</p>
+  </section>
+
+  <!-- VISUAL -->
+  <div class="visual">
+    <img src="퀸.png" alt="Queen history image">
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline">
+
+    <div class="item">
+      <div class="year">1970</div>
+      <div class="desc">Queen 결성 — Freddie·Brian·Roger가 함께 밴드를 시작하다.</div>
+    </div>
+
+    <div class="item">
+      <div class="year">1973</div>
+      <div class="desc">첫 정규 앨범 ‘Queen’ 발표.</div>
+    </div>
+
+    <div class="item">
+      <div class="year">1975</div>
+      <div class="desc">‘Bohemian Rhapsody’로 전 세계적인 돌풍을 일으킴.</div>
+    </div>
+
+    <div class="item">
+      <div class="year">1985</div>
+      <div class="desc">Live Aid에서 전설적 무대 기록. 로큰롤 역사에 남는 순간.</div>
+    </div>
+
+    <div class="item">
+      <div class="year">1991</div>
+      <div class="desc">Freddie Mercury 사망. 전 세계 팬들의 추모 물결.</div>
+    </div>
+
+    <div class="item">
+      <div class="year">2004~현재</div>
+      <div class="desc">Queen + Adam Lambert 활동으로 새로운 시대를 열다.</div>
+    </div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-box">
+    <a class="cta" href="밴드소개.html">밴드소개 보기</a>
+    <a class="cta" href="구성원.html">구성원 보기</a>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QUEEN | Band Introduction</title>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      background:#000;
+      color:#f7f4e9;
+      font-family:"Times New Roman",serif;
+      padding-top:70px;
+    }
+    a{text-decoration:none;color:inherit;}
+
+    /* ===== 앨범 페이지와 동일한 네비 ===== */
+    .site-header{
+      position:fixed;top:0;left:0;right:0;
+      height:70px;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 40px;
+      background:rgba(10,5,4,0.92);
+      backdrop-filter:blur(8px);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      z-index:100;
+    }
+
+    .logo{
+      font-size:20px;
+      letter-spacing:0.2em;
+      text-transform:uppercase;
+    }
+
+    .main-nav{
+      display:flex;
+      gap:22px;
+      font-size:13px;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+    }
+    .main-nav a{
+      position:relative;
+      padding-bottom:3px;
+    }
+    .main-nav a::after{
+      content:"";
+      position:absolute;
+      left:0;bottom:0;
+      width:0;height:2px;background:#f7f4e9;
+      transition:width 0.25s;
+    }
+    .main-nav a:hover::after{
+      width:100%;
+    }
+
+    .site-search{
+      display:flex;align-items:center;gap:6px;font-size:11px;
+    }
+    .site-search input{
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.2);
+      border-radius:999px;
+      padding:5px 10px;
+      color:#f7f4e9;width:150px;
+      outline:none;
+    }
+    .site-search button{
+      border:none;
+      border-radius:999px;
+      padding:5px 10px;
+      font-size:10px;
+      text-transform:uppercase;
+      background:#f7f4e9;color:#120a06;
+      cursor:pointer;
+    }
+
+    /* ===== Hero ===== */
+    .hero{
+      text-align:center;
+      margin-top:120px;
+      margin-bottom:70px;
+      padding:0 20px;
+    }
+    .hero h1{
+      font-size:42px;
+      letter-spacing:0.28em;
+      text-transform:uppercase;
+      margin-bottom:14px;
+    }
+    .hero p{
+      max-width:520px;
+      margin:0 auto;
+      opacity:0.85;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    /* ===== Visual ===== */
+    .visual{
+      max-width:1200px;
+      margin:40px auto 80px;
+      text-align:center;
+    }
+    .visual img{
+      width:80%;
+      max-width:700px;
+      opacity:0.9;
+      border-radius:10px;
+      box-shadow:0 12px 26px rgba(0,0,0,0.6);
+    }
+
+    /* ===== Simple band facts ===== */
+    .facts{
+      max-width:900px;
+      margin:0 auto 80px;
+      padding:0 20px;
+      font-size:15px;
+      opacity:0.85;
+      line-height:1.8;
+      text-align:center;
+    }
+
+    /* CTA buttons */
+    .cta-box{
+      text-align:center;
+      margin-bottom:100px;
+      display:flex;
+      gap:20px;
+      justify-content:center;
+    }
+    .cta{
+      border:1px solid #f7f4e9;
+      padding:12px 30px;
+      border-radius:999px;
+      text-transform:uppercase;
+      font-size:13px;
+      letter-spacing:0.12em;
+      transition:0.25s;
+    }
+    .cta:hover{
+      background:#f7f4e9;
+      color:#000;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <header class="site-header">
+    <div class="logo">QUEEN</div>
+    <nav class="main-nav">
+      <a href="band.html">밴드소개</a>
+      <a href="albums.html">앨범소개</a>
+      <a href="members.html">구성원</a>
+      <a href="history.html">그들의 역사</a>
+    </nav>
+    <form class="site-search">
+      <input type="search" placeholder="검색…" />
+      <button type="button">Search</button>
+    </form>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>BAND</h1>
+    <p>
+      퀸(Queen)은 1970년 영국에서 결성된  
+      록·오페라·팝을 넘나드는 혁신적인 밴드입니다.
+    </p>
+  </section>
+
+  <!-- VISUAL -->
+  <div class="visual">
+<img src="images/queen-group.jpg" alt="Queen Band Photo">
+  </div>
+
+  <!-- BAND FACTS (텍스트 최소) -->
+  <div class="facts">
+    · 프레디 머큐리의 독보적 보컬과 브라이언 메이의 기타 사운드  
+    <br>
+    · 장르의 경계를 허무는 실험적 음악 스타일  
+    <br>
+    · 세계적으로 사랑받는 수많은 히트곡과 라이브 공연의 전설
+  </div>
+
+  <!-- CTA Buttons -->
+  <div class="cta-box">
+    <a class="cta" href="albums.html">앨범 보기</a>
+    <a class="cta" href="구성원.html">구성원 보기</a>
+  </div>
+
+</body>
+</html>
